@@ -1,0 +1,20 @@
+<div>
+  <form (ngSubmit)="createRequest()">
+    <!-- Form fields for creating a new request -->
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" [(ngModel)]="newRequest.startDate" name="startDate" required>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" [(ngModel)]="newRequest.endDate" name="endDate" required>
+
+    <label for="reason">Reason:</label>
+    <input type="text" id="reason" [(ngModel)]="newRequest.reason" name="reason" required>
+
+    <label for="requestType">Type:</label>
+    <select id="requestType" [(ngModel)]="newRequest.requestType.id" name="requestType" required>
+      <option *ngFor="let type of requestTypes" [value]="type.id">{{ type.name }}</option>
+    </select>
+
+    <button type="submit">Create Request</button>
+  </form>
+</div>

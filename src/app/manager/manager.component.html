@@ -1,0 +1,34 @@
+<div class="manager">
+  <h2>Manager Requests</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests" [class.clickable]="request.requestStatus.name === 'Pending'" (click)="onRowClick(request)">
+        <td>{{ request.user.username }}</td> <!-- Access nested username -->
+        <td>{{ request.startDate | date: 'dd/MM/yyyy' }}</td> <!-- Custom date format -->
+        <td>{{ request.endDate | date: 'dd/MM/yyyy' }}</td> <!-- Custom date format -->
+        <td>{{ request.requestStatus.name }}</td> <!-- Access nested status -->
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="selectedRequest" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="onCloseModal()">&times;</span>
+      <h2>Request Details</h2>
+      <p><strong>Username:</strong> {{ selectedRequest.user.username }}</p>
+      <p><strong>Start Date:</strong> {{ selectedRequest.startDate | date: 'dd/MM/yyyy' }}</p> <!-- Custom date format -->
+      <p><strong>End Date:</strong> {{ selectedRequest.endDate | date: 'dd/MM/yyyy' }}</p> <!-- Custom date format -->
+      <p><strong>Status:</strong> {{ selectedRequest.requestStatus.name }}</p>
+      <button (click)="onAcceptRequest()">Accept</button>
+      <button (click)="onRejectRequest()">Reject</button>
+    </div>
+  </div>
+</div>

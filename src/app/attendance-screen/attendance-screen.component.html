@@ -1,0 +1,24 @@
+<div class="attendance-screen">
+  <h2>Attendance Screen</h2>
+  <button class="check-in" (click)="checkIn()">Check In</button>
+  <button class="check-out" (click)="checkOut()">Check Out</button>
+
+  <table *ngIf="checkInTime || checkOutTime">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="checkInTime">
+        <td>Check In</td>
+        <td>{{ checkInTime }}</td>
+      </tr>
+      <tr *ngIf="checkOutTime">
+        <td>Check Out</td>
+        <td>{{ checkOutTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,38 @@
+.roles-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.roles-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.roles-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.add-role {
+  margin-top: 20px;
+}
+
+.add-role input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.add-role button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-role button:hover {
+  background-color: #0056b3;
+}

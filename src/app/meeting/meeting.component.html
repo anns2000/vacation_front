@@ -1,0 +1,29 @@
+<div class="meetings">
+  <h2>Meetings</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Location</th>
+        <th>Participants</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meeting of meetings" (click)="editMeeting(meeting)">
+        <td>{{ meeting.startTime | date: 'short' }}</td>
+        <td>{{ meeting.endTime | date: 'short' }}</td>
+        <td>{{ meeting.location }}</td>
+        <td>
+          <ul class="participants-list">
+            <li *ngFor="let participant of meeting.participants">
+              {{ participant.username }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-edit-meeting *ngIf="selectedMeeting" [meeting]="selectedMeeting" (save)="updateMeeting($event)" (close)="closeModal()"></app-edit-meeting>
+</div>

@@ -1,0 +1,21 @@
+<div *ngIf="request">
+  <form (ngSubmit)="updateRequest()">
+    <!-- Form fields for editing the request -->
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" [(ngModel)]="request.startDate" name="startDate" required>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" [(ngModel)]="request.endDate" name="endDate" required>
+
+    <label for="reason">Reason:</label>
+    <input type="text" id="reason" [(ngModel)]="request.reason" name="reason" required>
+
+    <label for="requestType">Type:</label>
+    <select id="requestType" [(ngModel)]="request.requestType.id" name="requestType" required>
+      <option *ngFor="let type of requestTypes" [value]="type.id">{{ type.name }}</option>
+    </select>
+
+    <button type="submit">Update Request</button>
+    <button type="button" (click)="cancelRequest()">Cancel Request</button>
+  </form>
+</div>

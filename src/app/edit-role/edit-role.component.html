@@ -1,0 +1,27 @@
+<div *ngIf="isEditRoleModalOpen" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeEditRoleModal()">&times;</span>
+    <h2>Edit Role</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="editRoleName">Role Name:</label>
+      <input type="text" id="editRoleName" [(ngModel)]="role.name" name="editRoleName" required>
+
+      <h3>Permissions</h3>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of role.permissions; let i = index">
+          {{ permission.name }}
+          <span class="remove-permission" (click)="removePermission(i)">&times;</span>
+        </li>
+      </ul>
+
+      <label for="newPermission">Add Permission:</label>
+      <select id="newPermission" [(ngModel)]="newPermission" name="newPermission">
+        <option *ngFor="let permission of allPermissions" [value]="permission.name">{{ permission.name }}</option>
+      </select>
+      <button type="button" (click)="addPermission()">Add Permission</button>
+
+      <button type="submit">Update Role</button>
+      <button type="button" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>

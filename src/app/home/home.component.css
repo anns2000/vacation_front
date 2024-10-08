@@ -1,0 +1,9 @@
+.home-container {
+  display: flex; /* Use flexbox for layout */
+}
+
+.main-content {
+  margin-left: 200px; /* Same width as the sidebar */
+  padding: 20px; /* Add padding for aesthetics */
+  flex-grow: 1; /* Allow this section to grow */
+}

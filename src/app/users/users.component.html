@@ -1,0 +1,56 @@
+<div class="users">
+  <h2>Users</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Manager</th>
+        <th>Roles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="openEditUserModal(user)">
+        <td>{{ user.username }}</td>
+        <td>{{ user.manager?.username || 'N/A' }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let role of user.roles">{{ role.name }}</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Edit User Modal -->
+  <div *ngIf="isEditUserModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeEditUserModal()">&times;</span>
+      <h2>Edit User</h2>
+      <div *ngIf="selectedUser">
+        <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+        <p><strong>Manager:</strong> {{ selectedUser.manager?.username || 'N/A' }}</p>
+        <p><strong>Roles:</strong></p>
+        <table class="roles-table">
+          <thead>
+            <tr>
+              <th>Role Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of selectedUser.roles">
+              <td>{{ role.name }}</td>
+              <td><button class="remove-role" (click)="removeRole(role, $event)">X</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="add-role">
+          <select [(ngModel)]="newRoleName">
+            <option *ngFor="let role of availableRoles" [value]="role.name">{{ role.name }}</option>
+          </select>
+          <button (click)="addRole()">Add Role</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

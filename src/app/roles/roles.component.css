@@ -1,0 +1,155 @@
+.roles-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .roles-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .roles-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .roles-table th, .roles-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .roles-table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .roles-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .roles-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .roles-table td ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .roles-table td ul li {
+    display: inline-block;
+    margin: 2px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  
+  .roles-table td ul li:hover {
+    background-color: #0056b3;
+  }
+  
+  .roles-table td {
+    vertical-align: top;
+    text-align: center;
+  }
+  
+  .open-modal-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+  }
+  
+  .open-modal-button:hover {
+    background-color: #218838;
+  }
+  
+  .open-modal-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+  }
+  
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    max-height: 80%;
+    position: relative;
+    overflow-y: auto;
+  }
+  
+  .modal-content h2, .modal-content mat-form-field, .modal-content button {
+    padding-right: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Media Query for Responsiveness on Smaller Screens */
+  @media (max-width: 600px) {
+    .roles-container {
+      padding: 10px;
+      max-width: 100%;
+    }
+  
+    .modal-content {
+      width: 90%;
+      max-width: none;
+      padding: 15px;
+    }
+  
+    .open-modal-button {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  

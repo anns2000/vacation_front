@@ -1,0 +1,50 @@
+<div class="vacations">
+  <h2>Vacation Requests</h2>
+  <button (click)="openNewRequestModal()" class="open-modal-button">New Request</button>
+  
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Reason</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests" (click)="openEditRequestModal(request)">
+        <td>{{ request.startDate }}</td>
+        <td>{{ request.endDate }}</td>
+        <td>{{ request.reason }}</td>
+        <td>{{ request.requestType.name }}</td>
+        <td>{{ request.requestStatus.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- New Request Modal -->
+  <div *ngIf="isNewRequestModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeNewRequestModal()">&times;</span>
+      <app-new-request (requestCreated)="onRequestCreated($event)"></app-new-request>
+    </div>
+  </div>
+
+  <!-- Edit Request Modal -->
+  <div *ngIf="isEditRequestModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeEditRequestModal()">&times;</span>
+      <app-edit-request 
+        [request]="selectedRequest" 
+        (requestUpdated)="onRequestUpdated($event)" 
+        (requestCancelled)="onRequestCancelled()">
+      </app-edit-request>
+    </div>
+  </div>
+</div>

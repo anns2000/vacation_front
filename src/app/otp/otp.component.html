@@ -1,0 +1,14 @@
+<div class="otp">
+  <h2>Verify OTP</h2>
+  <form (ngSubmit)="submitOtp()">
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[0]" name="otp0" (keydown)="onKeyDown($event, 0)" (input)="onInput($event, 0)">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[1]" name="otp1" (keydown)="onKeyDown($event, 1)" (input)="onInput($event, 1)">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[2]" name="otp2" (keydown)="onKeyDown($event, 2)" (input)="onInput($event, 2)">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[3]" name="otp3" (keydown)="onKeyDown($event, 3)" (input)="onInput($event, 3)">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[4]" name="otp4" (keydown)="onKeyDown($event, 4)" (input)="onInput($event, 4)">
+      <input type="text" maxlength="1" class="otp-input" [(ngModel)]="otp[5]" name="otp5" (keydown)="onKeyDown($event, 5)" (input)="onInput($event, 5)">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit OTP</button>
+  </form>
+</div>

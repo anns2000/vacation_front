@@ -1,0 +1,56 @@
+/* src/app/attendance-screen/attendance-screen.component.css */
+.attendance-screen {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center; /* Center align the content */
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button.check-in {
+  background-color: #28a745; /* Green background for Check In */
+  color: white;
+}
+
+button.check-out {
+  background-color: #dc3545; /* Red background for Check Out */
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+button.check-in:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+button.check-out:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}

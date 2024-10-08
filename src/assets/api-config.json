@@ -1,0 +1,29 @@
+{
+  "apiBaseUrl": "http://localhost:5146/api",
+  "attendance": {
+    "checkIn": "/Attendance/checkin",
+    "checkOut": "/Attendance/checkout",
+    "getAttendance": "/Attendance/"
+  },
+  "auth": {
+    "login": "/auth/login",
+    "register": "/Auth/register",
+    "verifyOtp": "/Auth/verifyOtp"
+  },
+  "request": {
+    "getRequest": "/request/",
+    "addRequest": "/request/",
+    "updateRequest": "/request",
+    "getRequestTypes": "/request/types",
+    "cancel": "/request/{id}/cancel"
+  },
+  "manager": {
+    "loadRequests": "/Manager/MyRequests",
+    "acceptRequest": "/Manager/approve/{id}",
+    "rejectRequest": "/Manager/reject/{id}"
+  },
+  "users": {
+    "loadUsers": "/user"
+  }
+  
+}
