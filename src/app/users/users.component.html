@@ -29,6 +29,13 @@
       <div *ngIf="selectedUser">
         <p><strong>Username:</strong> {{ selectedUser.username }}</p>
         <p><strong>Manager:</strong> {{ selectedUser.manager?.username || 'N/A' }}</p>
+        <div class="add-manager">
+          <label for="managerSelect">Select Manager:</label>
+          <select id="managerSelect" [(ngModel)]="selectedManagerId">
+            <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+          </select>
+          <button (click)="assignManager()">Assign Manager</button>
+        </div>
         <p><strong>Roles:</strong></p>
         <table class="roles-table">
           <thead>

@@ -61,8 +61,9 @@ export class UsersComponent implements OnInit {
   availableRoles: Role[] = [];
   newRoleName: string = '';
   config?: Config;
-  isEditUserModalOpen = false;
+isEditUserModalOpen = false;
   selectedUser?: User;
+  selectedManagerId?: string; // Add this line
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -119,12 +120,14 @@ export class UsersComponent implements OnInit {
 
   openEditUserModal(user: User): void {
     this.selectedUser = user;
+    this.selectedManagerId = user.manager ? user.manager.username : undefined; // Add this line
     this.isEditUserModalOpen = true;
   }
 
   closeEditUserModal(): void {
     this.isEditUserModalOpen = false;
     this.selectedUser = undefined;
+    this.selectedManagerId = undefined; // Add this line
   }
 
   addRole(): void {
@@ -173,6 +176,23 @@ export class UsersComponent implements OnInit {
       }, error => {
         console.error('Error removing role:', error);
       });
+    }
+  }
+
+  assignManager(): void { // Add this method
+    if (this.selectedUser && this.selectedManagerId) {
+      const url = 'http://localhost:5146/api/Manager/AssingManager';
+      const body = {
+        managerId: this.selectedManagerId,
+        userId: this.selectedUser.id
+
+        // to do here ya anas we need ti assign the manager to the user and response that is done
+      };
+
+
+
+    } else {
+      console.log('No manager selected or no user selected');
     }
   }
 }

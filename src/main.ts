@@ -20,9 +20,11 @@ import { ResponseInterceptor } from './app/response.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { importProvidersFrom } from '@angular/core';
-import { Error403Component } from './app/error403/error403.component'; // Import the Error403Component
-import { RolesComponent } from './app/roles/roles.component'; // Import the RolesComponent
-import { UsersComponent } from './app/users/users.component'; // Import the UsersComponent
+import { Error403Component } from './app/error403/error403.component';
+import { RolesComponent } from './app/roles/roles.component';
+import { UsersComponent } from './app/users/users.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -35,11 +37,10 @@ const routes: Routes = [
     { path: 'attendance', component: AttendanceScreenComponent },
     { path: 'roles', component: RolesComponent }, 
     { path: 'users', component: UsersComponent },
-
   ]},
   { path: 'otp', component: OtpComponent },
-  { path: '403', component: Error403Component }, // Add the 403 route
-  { path: '**', redirectTo: '/' } // Fallback route
+  { path: '403', component: Error403Component },
+  { path: '**', redirectTo: '/' }
 ];
 
 bootstrapApplication(AppComponent, {
@@ -50,8 +51,10 @@ bootstrapApplication(AppComponent, {
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
     AuthGuard,
     importProvidersFrom(
-      BrowserAnimationsModule, // Required animations module
-      ToastrModule.forRoot() // ToastrModule added
+      BrowserAnimationsModule,
+      ToastrModule.forRoot(),
+      CommonModule,
+      FormsModule
     )
   ]
 }).catch(err => console.error(err));

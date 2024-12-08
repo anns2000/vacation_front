@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth.service'; // Import AuthService
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
   username = '';
   password = '';
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {} // Inject AuthService
 
   login(event: Event) {
     event.preventDefault();
@@ -23,7 +24,8 @@ export class LoginComponent {
     this.http.post('http://localhost:5146/api/auth/login', loginData).subscribe(
       (response: any) => {
         if (response.data) {
-          localStorage.setItem('token', response.data); 
+          localStorage.setItem('token', response.data.token);
+          this.authService.setUser(response.data.user); // Store user data
           this.router.navigate(['/home/attendance']);
         }
       },

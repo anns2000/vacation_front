@@ -9,15 +9,17 @@
 #toast-container.toast-top-right > div {
   opacity: 0.9;
   border-radius: 8px;
-  padding: 4.4px 8.8px; /* Increased padding by 10% */
+  padding: 8px 16px; /* Increased padding for a bigger toast */
   font-family: Arial, sans-serif;
-  font-size: 13.2px; /* Increased font size by 10% */
-  min-width: 165px; /* Increased minimum width by 10% */
-  max-width: 330px; /* Increased maximum width by 10% */
+  font-size: 16px; /* Increased font size for better visibility */
+  min-width: 250px; /* Increased minimum width for more space */
+  max-width: 400px; /* Increased maximum width for more space */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   margin-top: 12px; /* Space between toasts */
+  position: relative; /* Ensure the close button aligns correctly */
 }
 
+/* Toast types - Success, Error, Info, Warning */
 .toast-success {
   background-color: #28a745 !important; /* Green background */
   color: white !important; /* White text */
@@ -36,4 +38,24 @@
 .toast-warning {
   background-color: #ffc107 !important; /* Yellow background */
   color: black !important; /* Black text */
+}
+
+/* Custom Toastr Close Button Style */
+.toast-close-button {
+  font-size: 16px !important; /* Adjust the size of the button */
+  padding: 0 12px !important;  /* Increase padding to match toast size */
+  color: white !important;    /* Ensure the close button is visible */
+  position: absolute !important;  /* Position it correctly */
+  top: 0; /* Align it at the top */
+  right: 0; /* Align it at the right */
+  height: 100%; /* Ensure it fills the height of the toast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjust the icon size */
+.toast-close-button i {
+  font-size: 18px !important;  /* Make the icon larger to match the bigger button */
+  transform: scale(1) !important;  /* Maintain the normal scale */
 }

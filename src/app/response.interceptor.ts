@@ -17,9 +17,9 @@ export class ResponseInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log('Error status:', error.status); 
-    console.log('Error message:', error.message);
+   
 
+    console.log("anas"); 
 
     if (error.status === 401) {
       this.router.navigate(['/login']).then(() => {
@@ -35,7 +35,9 @@ export class ResponseInterceptor implements HttpInterceptor {
         console.error('Navigation to /403 failed', navError);
       });
     } else {
-      this.toastr.error(error.error.errors[0]); // Show a generic error message
+      console.log('Error:', error);
+      this.toastr.error(error.error.message||error.error.errors[0]); // Show a generic error message
+ 
     }
 
     return throwError(() => new Error(error.message));

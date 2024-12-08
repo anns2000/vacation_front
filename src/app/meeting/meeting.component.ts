@@ -1,56 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { MeetingService } from './meeting.service';
+import { Meeting } from '../models/meeting.model';
 import { FormsModule } from '@angular/forms';
-import { EditMeetingComponent } from './edit-meeting/edit-meeting.component';
-
-interface Participant {
-  username: string;
-  email: string;
-}
-
-interface Meeting {
-  id: string; // Add this line
-  startTime: string;
-  endTime: string;
-  location: string;
-  participants: Participant[];
-}
 
 @Component({
   selector: 'app-meeting',
-  templateUrl: './meeting.component.html',
-  styleUrls: ['./meeting.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, EditMeetingComponent]
+  imports: [CommonModule, FormsModule],
+  templateUrl: './meeting.component.html',
+  styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit {
   meetings: Meeting[] = [];
   selectedMeeting: Meeting | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private meetingService: MeetingService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadMeetings();
   }
 
   loadMeetings(): void {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.get<{ success: boolean, message: string, data: Meeting[] }>('http://localhost:5146/api/meeting', { headers })
-      .subscribe(response => {
-        if (response.success) {
-          this.meetings = response.data;
-        } else {
-          console.error('Failed to fetch meetings:', response.message);
-        }
-      }, error => {
-        console.error('Error fetching meetings:', error);
-      });
+    this.meetingService.getMeetings().subscribe(response => {
+      if (response.success) {
+        this.meetings = response.data;
+      } else {
+        this.toastr.error('Failed to load meetings');
+      }
+    }, error => {
+      this.toastr.error('Error loading meetings:', error);
+    });
   }
 
-  editMeeting(meeting: Meeting): void {
+  selectMeeting(meeting: Meeting): void {
     this.selectedMeeting = { ...meeting };
   }
 
@@ -58,23 +42,29 @@ export class MeetingComponent implements OnInit {
     this.selectedMeeting = null;
   }
 
-  updateMeeting(updatedMeeting: Meeting): void {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.put<{ success: boolean, message: string, data: Meeting }>(`http://localhost:5146/api/meeting/${updatedMeeting.id}`, updatedMeeting, { headers })
-      .subscribe(response => {
-        if (response.success) {
-          const index = this.meetings.findIndex(m => m.id === updatedMeeting.id);
-          if (index !== -1) {
-            this.meetings[index] = response.data;
+  saveMeeting(): void {
+    if (this.selectedMeeting) {
+      // Create a new object with ParticipantsIds list
+      const meetingToUpdate = {
+        ...this.selectedMeeting,
+        ParticipantsIds: this.selectedMeeting.participants.map(p => p.id)
+      };
+  
+      this.meetingService.updateMeeting(meetingToUpdate).subscribe({
+        next: response => {
+          if (response.success) {
+            this.toastr.success('Meeting updated successfully');
+            this.loadMeetings();
+            this.closeModal();
+          } else {
+            this.toastr.error('Failed to update meeting');
           }
-          this.closeModal();
-        } else {
-          console.error('Failed to update meeting:', response.message);
+        },
+        error: response => {
+          console.error('Error updating meeting:', response);
+          //this.toastr.error(response);
         }
-      }, error => {
-        console.error('Error updating meeting:', error);
       });
+    }
   }
 }
