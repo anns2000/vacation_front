@@ -7,6 +7,7 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Status</th>
+        <th>Type</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
         <td>{{ request.startDate | date: 'dd/MM/yyyy' }}</td> <!-- Custom date format -->
         <td>{{ request.endDate | date: 'dd/MM/yyyy' }}</td> <!-- Custom date format -->
         <td>{{ request.requestStatus.name }}</td> <!-- Access nested status -->
+        <td>{{ request.requestType.name }} </td> <!-- Corrected to lowercase requestType -->
       </tr>
     </tbody>
   </table>
@@ -27,6 +29,7 @@
       <p><strong>Start Date:</strong> {{ selectedRequest.startDate | date: 'dd/MM/yyyy' }}</p> <!-- Custom date format -->
       <p><strong>End Date:</strong> {{ selectedRequest.endDate | date: 'dd/MM/yyyy' }}</p> <!-- Custom date format -->
       <p><strong>Status:</strong> {{ selectedRequest.requestStatus.name }}</p>
+      <p><strong>Type:</strong> {{ selectedRequest.requestType.name }}</p> <!-- Corrected to lowercase requestType -->
       <button (click)="onAcceptRequest()">Accept</button>
       <button (click)="onRejectRequest()">Reject</button>
     </div>

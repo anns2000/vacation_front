@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 interface User {
   username: string;
@@ -9,12 +10,16 @@ interface User {
 interface RequestStatus {
   name: string;
 }
+interface RequestType {
+  name: string;
+}
 
 interface Request {
   id: string;
   startDate: string;
   endDate: string;
   requestStatus: RequestStatus; // Nested requestStatus object
+  requestType: RequestType; // Corrected to lowercase requestType
   user: User; // Nested user object
   rowVersion: string;
 }
@@ -40,7 +45,7 @@ export class ManagerComponent implements OnInit {
   selectedRequest?: Request;
   config?: Config;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadConfig().then(() => {
@@ -90,25 +95,30 @@ export class ManagerComponent implements OnInit {
   onAcceptRequest(): void {
     if (this.selectedRequest && this.config) {
       const url = `${this.config.apiBaseUrl}${this.config.manager.acceptRequest.replace('{id}', this.selectedRequest.id)}`;
-      this.http.post(url, {}).subscribe(response => {
-        console.log('Request accepted');
+      const body = { rowVersion: this.selectedRequest.rowVersion };
+      this.http.post(url, body).subscribe(response => {
         this.onCloseModal();
         this.loadRequests(); // Refresh the screen
       }, error => {
         console.error('Error accepting request:', error);
+        this.toastr.error('Error accepting request please refresh the page');
       });
+
     }
   }
   
   onRejectRequest(): void {
     if (this.selectedRequest && this.config) {
       const url = `${this.config.apiBaseUrl}${this.config.manager.rejectRequest.replace('{id}', this.selectedRequest.id)}`;
-      this.http.post(url, {}).subscribe(response => {
+      const body = { rowVersion: this.selectedRequest.rowVersion };
+      this.http.post(url, body).subscribe(response => {
         console.log('Request rejected');
         this.onCloseModal();
         this.loadRequests(); // Refresh the screen
       }, error => {
         console.error('Error rejecting request:', error);
+        this.toastr.error('Error rejecting request please refresh the page');
+
       });
     }
   }

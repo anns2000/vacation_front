@@ -29,10 +29,18 @@ export class VacationsComponent implements OnInit {
   ngOnInit(): void {
     this.loadRequests();
   }
+
   loadRequests(): void {
-    this.requestService.getRequests().subscribe((data: Request[]) => {
-      this.requests = data;
-    });
+    this.requestService.ensureConfigLoaded().subscribe(
+      () => {
+        this.requestService.getRequests().subscribe((data: Request[]) => {
+          this.requests = data;
+        });
+      },
+      (error) => {
+        console.error('Failed to load API configuration', error);
+      }
+    );
   }
 
   openNewRequestModal(): void {
@@ -64,7 +72,6 @@ export class VacationsComponent implements OnInit {
       (r) => r.id === updatedData.request.id
     );
     if (index !== -1) {
-      // Create a new object with the updated properties
       this.requests[index] = { ...updatedData.request };
     }
     this.successMessage = updatedData.message;
@@ -73,6 +80,6 @@ export class VacationsComponent implements OnInit {
 
   onRequestCancelled(): void {
     this.closeEditRequestModal();
-    this.loadRequests(); // Reload the requests to reflect the cancellation
+    this.loadRequests();
   }
 }

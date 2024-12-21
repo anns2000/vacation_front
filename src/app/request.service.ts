@@ -51,12 +51,20 @@ export class RequestService {
     });
   }
 
-  private ensureConfigLoaded(): boolean {
-    if (!this.apiUrl || !this.requestEndpoints) {
-      console.error('API configuration not loaded');
-      return false;
+  ensureConfigLoaded(): Observable<void> {
+    if (this.apiUrl && this.requestEndpoints) {
+      return new Observable((observer) => {
+        observer.next();
+        observer.complete();
+      });
+    } else {
+      return this.apiConfigService.loadConfig().pipe(
+        map((config) => {
+          this.apiUrl = config.apiBaseUrl;
+          this.requestEndpoints = config.request;
+        })
+      );
     }
-    return true;
   }
 
   getRequests(): Observable<Request[]> {

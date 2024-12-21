@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of requests" (click)="openEditRequestModal(request)">
+      <tr *ngFor="let request of requests" [ngClass]="{'clickable': request.requestStatus.name === 'Pending'}" (click)="request.requestStatus.name === 'Pending' && openEditRequestModal(request)">
         <td>{{ request.startDate }}</td>
         <td>{{ request.endDate }}</td>
         <td>{{ request.reason }}</td>

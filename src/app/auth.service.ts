@@ -26,7 +26,12 @@ export class AuthService {
   private loadUserFromLocalStorage() {
     const user = localStorage.getItem('user');
     if (user) {
-      this.user = JSON.parse(user);
+      try {
+        this.user = JSON.parse(user);
+      } catch (e) {
+        console.error('Failed to parse user from localStorage', e);
+        this.user = null;
+      }
     }
   }
 

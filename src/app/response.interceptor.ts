@@ -19,7 +19,6 @@ export class ResponseInterceptor implements HttpInterceptor {
   private handleError(error: HttpErrorResponse): Observable<never> {
    
 
-    console.log("anas"); 
 
     if (error.status === 401) {
       this.router.navigate(['/login']).then(() => {
