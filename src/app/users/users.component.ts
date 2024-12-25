@@ -185,13 +185,29 @@ isEditUserModalOpen = false;
       const body = {
         managerId: this.selectedManagerId,
         userId: this.selectedUser.id
-
-        // to do here ya anas we need ti assign the manager to the user and response that is done
       };
+
+      this.http.post(url, body).subscribe(response => {
+        
+        if(response){
+          this.toastr.success('Manager assigned successfully');
+            this.loadUsers();
+
+          
+        }
+        else
+        {
+          this.toastr.error('Error assigning manager');
+        }
+
+      }, error => {
+        console.error('Error assigning manager:', error);
+      });
 
 
 
     } else {
+      this.toastr.error('No manager selected or no user selected', 'Error');
       console.log('No manager selected or no user selected');
     }
   }
